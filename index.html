@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Benimle Barışır Mısın?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffeef0;
+      text-align: center;
+      padding: 50px;
+    }
+    img {
+      width: 300px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      color: #d6336c;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      min-width: 100px;
+      transition: transform 0.3s ease;
+    }
+    #yesBtn {
+      background-color: #38b000;
+      color: white;
+    }
+    #noBtn {
+      background-color: #ff595e;
+      color: white;
+    }
+    #loveMessage {
+      font-size: 48px;
+      color: #e63946;
+      display: none;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Cute animals gif" />
+  <h1 id="question">Benimle barışır mısın?</h1>
+
+  <div class="buttons" id="buttonContainer">
+    <button id="yesBtn" class="btn">Evet</button>
+    <button id="noBtn" class="btn">Hayır</button>
+  </div>
+
+  <div id="loveMessage">Seni çok seviyorum! ❤️</div>
+
+  <script>
+    const questions = [
+      "Benimle barışır mısın?",
+      "Hadi ama, neden olmasın?",
+      "Cidden mi? Beni özlemedin mi?",
+      "Bak çok ciddiyim...",
+      "Seni çok seviyorum...",
+      "E hadi artık! ❤️"
+    ];
+
+    let currentStep = 0;
+    const questionEl = document.getElementById('question');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const container = document.getElementById('buttonContainer');
+    const loveMessage = document.getElementById('loveMessage');
+
+    function swapButtons() {
+      const yes = container.removeChild(yesBtn);
+      const no = container.removeChild(noBtn);
+      container.appendChild(no);
+      container.appendChild(yes);
+    }
+
+    noBtn.addEventListener('click', () => {
+      currentStep++;
+      if (currentStep < questions.length) {
+        noBtn.textContent = questions[currentStep];
+        yesBtn.style.transform = `scale(${1 + currentStep * 0.3})`;
+        swapButtons();
+      } else {
+        questionEl.textContent = "Tamam o zaman, artık hayır yok 😄";
+        yesBtn.style.position = 'absolute';
+        yesBtn.style.top = '0';
+        yesBtn.style.left = '0';
+        yesBtn.style.width = '100vw';
+        yesBtn.style.height = '100vh';
+        yesBtn.style.fontSize = '50px';
+        yesBtn.textContent = "EVET!";
+        noBtn.style.display = 'none';
+      }
+    });
+
+    yesBtn.addEventListener('click', () => {
+      loveMessage.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
